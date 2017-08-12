@@ -1,22 +1,15 @@
-package com.example.makrandpawar.quotesdukan;
+package com.inspiration.makrandpawar.quotesdukan;
 
-import android.annotation.SuppressLint;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.makrandpawar.quotesdukan.adapter.CardStackActivityAdapter;
-import com.example.makrandpawar.quotesdukan.adapter.QuotesFragmentRecyclerAdapter;
-import com.example.makrandpawar.quotesdukan.model.QuotesListResponse;
-import com.example.makrandpawar.quotesdukan.rest.QuoteService;
-import com.example.makrandpawar.quotesdukan.rest.RetrofitService;
+import com.inspiration.makrandpawar.quotesdukan.adapter.CardStackActivityAdapter;
+import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
+import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
+import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
 import com.wenchao.cardstack.CardStack;
 
 import retrofit2.Call;

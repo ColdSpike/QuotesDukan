@@ -1,4 +1,4 @@
-package com.example.makrandpawar.quotesdukan.model;
+package com.inspiration.makrandpawar.quotesdukan.model;
 
 
 public class QotdResponse {

@@ -1,4 +1,4 @@
-package com.example.makrandpawar.quotesdukan;
+package com.inspiration.makrandpawar.quotesdukan;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,9 +10,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.makrandpawar.quotesdukan.model.QotdResponse;
-import com.example.makrandpawar.quotesdukan.rest.QuoteService;
-import com.example.makrandpawar.quotesdukan.rest.RetrofitService;
+import com.inspiration.makrandpawar.quotesdukan.model.QotdResponse;
+import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
+import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;

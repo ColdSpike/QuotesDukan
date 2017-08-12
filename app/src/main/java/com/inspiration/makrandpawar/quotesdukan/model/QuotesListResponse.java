@@ -1,4 +1,4 @@
-package com.example.makrandpawar.quotesdukan.model;
+package com.inspiration.makrandpawar.quotesdukan.model;
 
 import java.util.List;
 

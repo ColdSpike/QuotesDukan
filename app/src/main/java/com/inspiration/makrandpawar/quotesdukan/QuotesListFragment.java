@@ -1,4 +1,4 @@
-package com.example.makrandpawar.quotesdukan;
+package com.inspiration.makrandpawar.quotesdukan;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,13 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.makrandpawar.quotesdukan.adapter.QuotesFragmentRecyclerAdapter;
-import com.example.makrandpawar.quotesdukan.model.QuotesListResponse;
-import com.example.makrandpawar.quotesdukan.rest.QuoteService;
-import com.example.makrandpawar.quotesdukan.rest.RetrofitService;
+import com.inspiration.makrandpawar.quotesdukan.adapter.QuotesFragmentRecyclerAdapter;
+import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
+import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
+import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
-import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
 import java.util.List;

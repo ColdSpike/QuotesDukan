@@ -1,4 +1,4 @@
-package com.example.makrandpawar.quotesdukan.rest;
+package com.inspiration.makrandpawar.quotesdukan.rest;
 
 import java.io.IOException;
 

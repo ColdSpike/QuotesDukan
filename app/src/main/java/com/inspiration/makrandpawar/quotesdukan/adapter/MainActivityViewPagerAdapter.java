@@ -1,11 +1,11 @@
-package com.example.makrandpawar.quotesdukan.adapter;
+package com.inspiration.makrandpawar.quotesdukan.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.makrandpawar.quotesdukan.QotdFragment;
-import com.example.makrandpawar.quotesdukan.QuotesListFragment;
+import com.inspiration.makrandpawar.quotesdukan.QotdFragment;
+import com.inspiration.makrandpawar.quotesdukan.QuotesListFragment;
 
 public class MainActivityViewPagerAdapter extends FragmentPagerAdapter {
     public MainActivityViewPagerAdapter(FragmentManager fm) {

@@ -1,4 +1,4 @@
-package com.example.makrandpawar.quotesdukan.adapter;
+package com.inspiration.makrandpawar.quotesdukan.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.makrandpawar.quotesdukan.R;
-import com.example.makrandpawar.quotesdukan.model.QuotesListResponse;
+import com.inspiration.makrandpawar.quotesdukan.R;
+import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
 
 import java.util.Random;
 

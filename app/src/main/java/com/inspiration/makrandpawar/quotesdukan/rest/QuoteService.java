@@ -1,7 +1,7 @@
-package com.example.makrandpawar.quotesdukan.rest;
+package com.inspiration.makrandpawar.quotesdukan.rest;
 
-import com.example.makrandpawar.quotesdukan.model.QotdResponse;
-import com.example.makrandpawar.quotesdukan.model.QuotesListResponse;
+import com.inspiration.makrandpawar.quotesdukan.model.QotdResponse;
+import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
