@@ -3,6 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/mainactivity_about"
+        android:title="About"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/mainactivity_daynightswitch"
         android:icon="@drawable/ic_brightness_low_black_24dp"
         android:title="DayNightSwitch"
