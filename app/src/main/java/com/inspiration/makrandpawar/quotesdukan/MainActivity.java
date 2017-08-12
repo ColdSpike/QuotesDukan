@@ -1,5 +1,9 @@
 package com.inspiration.makrandpawar.quotesdukan;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,11 +13,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.inspiration.makrandpawar.quotesdukan.adapter.MainActivityViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private AdView adView;
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +34,33 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainactivity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Quote Of The Day");
+
+        MobileAds.initialize(this, "ca-app-pub-3165170714247427~9835438052");
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest request = new AdRequest.Builder().build();
+        adView.loadAd(request);
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //ca-app-pub-3165170714247427/1485997135
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().build());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showAd();
+                    }
+                }, 20000);
+            }
+        });
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showAd();
+            }
+        }, 15000);
 
         viewPager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
         viewPager.setAdapter(new MainActivityViewPagerAdapter(getSupportFragmentManager()));
@@ -46,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showAd() {
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
+        }
     }
 
     @Override

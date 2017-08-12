@@ -1,5 +1,7 @@
 package com.inspiration.makrandpawar.quotesdukan;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,7 +66,6 @@ public class CardStackActivity extends AppCompatActivity {
                     .sneakError();
             swipeRefreshLayout.setRefreshing(false);
         }
-
 
     }
 
@@ -131,7 +132,6 @@ public class CardStackActivity extends AppCompatActivity {
                 cardStack.setAdapter(cardStackActivityAdapter);
                 cardStack.setVisibility(View.VISIBLE);
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(CardStackActivity.this, "Refresh's remaining: " + response.headers().get("Rate-Limit-Remaining"), Toast.LENGTH_SHORT).show();
             }
 
             @Override

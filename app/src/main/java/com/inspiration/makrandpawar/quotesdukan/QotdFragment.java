@@ -1,5 +1,7 @@
 package com.inspiration.makrandpawar.quotesdukan;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -70,6 +72,17 @@ public class QotdFragment extends android.support.v4.app.Fragment {
             swipeRefreshLayout.setRefreshing(false);
         }
 
+        body.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("simple text", body.getText().toString()+" :- "+author.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getActivity(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
         return rootView;
     }
 
@@ -85,9 +98,6 @@ public class QotdFragment extends android.support.v4.app.Fragment {
                 body.setText(response.body().quote.body);
                 author.setText(response.body().quote.author);
                 swipeRefreshLayout.setRefreshing(false);
-
-
-                Toast.makeText(getActivity(), "Refresh's remaining: " + response.headers().get("Rate-Limit-Remaining"), Toast.LENGTH_SHORT).show();
             }
 
             @Override

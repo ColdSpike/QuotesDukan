@@ -1,8 +1,6 @@
 <resources>
-    <string name="app_name">QuotesDemo</string>
+    <string name="app_name">Quotes Dukan</string>
 
     <string name="title_activity_card_stack">CardStackActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="doublequote">\"</string>
 </resources>

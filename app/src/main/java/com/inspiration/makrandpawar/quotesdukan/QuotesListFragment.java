@@ -166,8 +166,6 @@ public class QuotesListFragment extends Fragment {
                 QuotesFragmentRecyclerAdapter quotesFragmentRecyclerAdapter = new QuotesFragmentRecyclerAdapter(getActivity(), response.body().quotes);
                 recyclerView.setAdapter(quotesFragmentRecyclerAdapter);
                 swipeRefreshLayout.setRefreshing(false);
-
-                Toast.makeText(getActivity(), "Refresh's remaining: " + response.headers().get("Rate-Limit-Remaining"), Toast.LENGTH_SHORT).show();
             }
 
             @Override
