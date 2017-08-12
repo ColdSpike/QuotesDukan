@@ -1,4 +1,4 @@
-package com.example.makrandpawar.quotesdemo;
+package com.example.makrandpawar.quotesdukan;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.makrandpawar.quotesdemo", appContext.getPackageName());
+        assertEquals("com.example.makrandpawar.quotesdukan", appContext.getPackageName());
     }
 }

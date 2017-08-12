@@ -1,0 +1,33 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/cardstackactivity_swipe"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay"
+        tools:context="com.example.makrandpawar.quotesdukan.CardStackActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Refresh To Load More Quotes"
+            android:textColor="#FFFFFF" />
+
+        <com.wenchao.cardstack.CardStack
+            android:id="@+id/cardstackactivity_cardstack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:padding="20dp" />
+    </FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
+
+

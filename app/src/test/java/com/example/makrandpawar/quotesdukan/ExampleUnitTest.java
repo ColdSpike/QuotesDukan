@@ -1,4 +1,4 @@
-package com.example.makrandpawar.quotesdemo;
+package com.example.makrandpawar.quotesdukan;
 
 import org.junit.Test;
 
