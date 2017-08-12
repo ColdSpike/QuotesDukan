@@ -15,6 +15,8 @@ import com.github.paolorotolo.appintro.AppIntro2Fragment;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
 public class IntroActivity extends AppIntro2 {
+    private SharedPreferences getPrefs;
+    private boolean isFirstStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +29,10 @@ public class IntroActivity extends AppIntro2 {
         addSlide(AppIntro2Fragment.newInstance("AND THE BEST PART!!", "NO IRRITATING ADS!", R.drawable.ic_tag_faces_black_48dp, getResources().getColor(R.color.introcolor6)));
         showSkipButton(false);
         setProgressButtonEnabled(true);
-        SharedPreferences getPrefs = PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext());
 
-        boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+        getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        isFirstStart = getPrefs.getBoolean("firstStart", true);
 
         if (!isFirstStart) {
 
@@ -38,21 +40,21 @@ public class IntroActivity extends AppIntro2 {
             startActivity(i);
             finish();
         }
-        SharedPreferences.Editor e = getPrefs.edit();
-        e.putBoolean("firstStart", false);
-        e.apply();
     }
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        // Do something when users tap on Skip button.
     }
 
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        // Do something when users tap on Done button.
+
+        SharedPreferences.Editor e = getPrefs.edit();
+        e.putBoolean("firstStart", false);
+        e.apply();
+
         final Intent i = new Intent(IntroActivity.this, MainActivity.class);
         startActivity(i);
         finish();
@@ -61,6 +63,5 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
-        // Do something when the slide changes.
     }
 }
