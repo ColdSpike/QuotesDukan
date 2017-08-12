@@ -8,14 +8,12 @@ import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by MAKRAND PAWAR on 8/12/2017.
- */
 
 public class RetrofitService {
-    Retrofit retrofit;
+    private Retrofit retrofit;
+    private Retrofit retrofit2;
 
-    public Retrofit getInstance() {
+    public Retrofit getInstanceForQuote() {
         if (retrofit == null) {
             Interceptor interceptor = new Interceptor() {
                 @Override
@@ -37,5 +35,28 @@ public class RetrofitService {
                     .build();
         }
         return retrofit;
+    }
+
+    public Retrofit getInstanceForOnThisDay() {
+        if (retrofit2 == null) {
+            Interceptor interceptor = new Interceptor() {
+                @Override
+                public okhttp3.Response intercept(Chain chain) throws IOException {
+                    Request newRequest = chain.request().newBuilder()
+                            .build();
+                    return chain.proceed(newRequest);
+                }
+            };
+            OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+            okHttpBuilder.addInterceptor(interceptor);
+            OkHttpClient okHttpClient = okHttpBuilder.build();
+
+            retrofit2 = new Retrofit.Builder()
+                    .baseUrl("http://history.muffinlabs.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build();
+        }
+        return retrofit2;
     }
 }

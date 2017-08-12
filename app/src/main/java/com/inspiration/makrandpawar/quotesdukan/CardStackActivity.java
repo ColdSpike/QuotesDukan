@@ -1,7 +1,5 @@
 package com.inspiration.makrandpawar.quotesdukan;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -113,7 +111,7 @@ public class CardStackActivity extends AppCompatActivity {
     private void callQuotesListService() {
         RetrofitService retrofitService = new RetrofitService();
 
-        QuoteService quoteService = retrofitService.getInstance().create(QuoteService.class);
+        QuoteService quoteService = retrofitService.getInstanceForQuote().create(QuoteService.class);
 
         quoteService.getQuotes("Token token=c6e2025366085672e9a5b3d86f179b57").enqueue(new Callback<QuotesListResponse>() {
             @Override

@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.inspiration.makrandpawar.quotesdukan.QotdFragment;
-import com.inspiration.makrandpawar.quotesdukan.QuotesListFragment;
+import com.inspiration.makrandpawar.quotesdukan.fragments.QotdFragment;
+import com.inspiration.makrandpawar.quotesdukan.fragments.QuotesListFragment;
 
 public class MainActivityViewPagerAdapter extends FragmentPagerAdapter {
     public MainActivityViewPagerAdapter(FragmentManager fm) {

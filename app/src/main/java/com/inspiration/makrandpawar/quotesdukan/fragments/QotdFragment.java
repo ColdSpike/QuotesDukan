@@ -1,4 +1,4 @@
-package com.inspiration.makrandpawar.quotesdukan;
+package com.inspiration.makrandpawar.quotesdukan.fragments;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.inspiration.makrandpawar.quotesdukan.QuotesDukan;
+import com.inspiration.makrandpawar.quotesdukan.R;
 import com.inspiration.makrandpawar.quotesdukan.model.QotdResponse;
 import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
 import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
@@ -89,7 +91,7 @@ public class QotdFragment extends android.support.v4.app.Fragment {
     private void callQotdService() {
         RetrofitService retrofitService = new RetrofitService();
 
-        QuoteService quoteService = retrofitService.getInstance().create(QuoteService.class);
+        QuoteService quoteService = retrofitService.getInstanceForQuote().create(QuoteService.class);
 
         quoteService.getQotd().enqueue(new Callback<QotdResponse>() {
             @Override

@@ -16,18 +16,11 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.inspiration.makrandpawar.quotesdukan.adapter.MainActivityViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private AdView adView;
-    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,33 +30,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainactivity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Quote Of The Day");
-
-        MobileAds.initialize(this, "ca-app-pub-3165170714247427~9835438052");
-        adView = (AdView) findViewById(R.id.adView);
-        AdRequest request = new AdRequest.Builder().build();
-        adView.loadAd(request);
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //ca-app-pub-3165170714247427/1485997135
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-        interstitialAd.setAdListener(new AdListener(){
-            @Override
-            public void onAdClosed() {
-                interstitialAd.loadAd(new AdRequest.Builder().build());
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showAd();
-                    }
-                }, 20000);
-            }
-        });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showAd();
-            }
-        }, 15000);
 
         viewPager = (ViewPager) findViewById(R.id.mainactivity_viewpager);
         viewPager.setAdapter(new MainActivityViewPagerAdapter(getSupportFragmentManager()));
@@ -89,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showAd() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,10 +62,8 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.mainactivity_menu, menu);
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
             menu.findItem(R.id.mainactivity_daynightswitch).setIcon(R.drawable.ic_brightness_high_black_24dp);
-            Toast.makeText(this, "Night mode on", Toast.LENGTH_SHORT).show();
         } else {
             menu.findItem(R.id.mainactivity_daynightswitch).setIcon(R.drawable.ic_brightness_low_black_24dp);
-            Toast.makeText(this, "Day mode on", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -120,19 +79,20 @@ public class MainActivity extends AppCompatActivity {
                 recreate();
             }
         }else if(item.getItemId() == R.id.mainactivity_about){
-            MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                    .title("About The App")
-                    .positiveText("CLOSE")
-                    .content("This app uses the api provided by favqs.com to display its contents")
-                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-            MaterialDialog dialog = builder.build();
-            dialog.show();
+            startActivity(new Intent(this,OnThisDayActivity.class));
+//            MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+//                    .title("About The App")
+//                    .positiveText("CLOSE")
+//                    .content("This app uses the api provided by favqs.com to display its contents")
+//                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                        @Override
+//                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//
+//            MaterialDialog dialog = builder.build();
+//            dialog.show();
         }
         return true;
     }

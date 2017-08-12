@@ -1,4 +1,4 @@
-package com.inspiration.makrandpawar.quotesdukan;
+package com.inspiration.makrandpawar.quotesdukan.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,8 +13,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.inspiration.makrandpawar.quotesdukan.CardStackActivity;
+import com.inspiration.makrandpawar.quotesdukan.QuotesDukan;
+import com.inspiration.makrandpawar.quotesdukan.R;
 import com.inspiration.makrandpawar.quotesdukan.adapter.QuotesFragmentRecyclerAdapter;
 import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
 import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
@@ -152,7 +154,7 @@ public class QuotesListFragment extends Fragment {
     private void callQuotesListService() {
         RetrofitService retrofitService = new RetrofitService();
 
-        QuoteService quoteService = retrofitService.getInstance().create(QuoteService.class);
+        QuoteService quoteService = retrofitService.getInstanceForQuote().create(QuoteService.class);
 
         quoteService.getQuotes("Token token=c6e2025366085672e9a5b3d86f179b57").enqueue(new Callback<QuotesListResponse>() {
             @Override

@@ -22,6 +22,7 @@ public class IntroActivity extends AppIntro2 {
         addSlide(AppIntro2Fragment.newInstance("New Quote When You Want", "just swipe down to refresh the quote(s)", R.drawable.ic_arrow_downward_black_48dp, getResources().getColor(R.color.introcolor1)));
         addSlide(AppIntro2Fragment.newInstance("Day And Night Mode", "Day mode for brighter backgrounds and night mode for darker backgrounds", R.drawable.ic_brightness_medium_black_48dp, getResources().getColor(R.color.introcolor2)));
         addSlide(AppIntro2Fragment.newInstance("Multiple View Modes", "different types of view modes for better experience", R.drawable.ic_different_views_48dp_black, getResources().getColor(R.color.introcolor3)));
+        addSlide(AppIntro2Fragment.newInstance("Easy Copy", "just long click what you want to copy and it will be copied to your clipboard", R.drawable.ic_content_copy_black_48dp, getResources().getColor(R.color.introcolor4)));
         showSkipButton(false);
         setProgressButtonEnabled(true);
         SharedPreferences getPrefs = PreferenceManager
