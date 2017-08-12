@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/mainactivity_about"
-        android:title="About"
-        app:showAsAction="never" />
+        android:id="@+id/mainactivity_onthisday"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="OnThisDay"
+        app:showAsAction="always" />
     <item
         android:id="@+id/mainactivity_daynightswitch"
         android:icon="@drawable/ic_brightness_low_black_24dp"
         android:title="DayNightSwitch"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/mainactivity_about"
+        android:title="About"
+        app:showAsAction="never" />
 </menu>

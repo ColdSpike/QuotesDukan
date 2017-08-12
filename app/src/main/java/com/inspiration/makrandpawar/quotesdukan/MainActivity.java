@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -21,6 +23,7 @@ import com.inspiration.makrandpawar.quotesdukan.adapter.MainActivityViewPagerAda
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 1) {
+                    floatingActionButton.setVisibility(View.GONE);
                     getSupportActionBar().setTitle("Quotes Dukan");
                 } else if (position == 0) {
+                    floatingActionButton.setVisibility(View.VISIBLE);
                     getSupportActionBar().setTitle("Quote Of The Day");
                 }
             }
@@ -51,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.mainactivity_fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
             }
         });
     }
@@ -78,21 +91,22 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 recreate();
             }
-        }else if(item.getItemId() == R.id.mainactivity_about){
-            startActivity(new Intent(this,OnThisDayActivity.class));
-//            MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-//                    .title("About The App")
-//                    .positiveText("CLOSE")
-//                    .content("This app uses the api provided by favqs.com to display its contents")
-//                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-//                        @Override
-//                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                            dialog.dismiss();
-//                        }
-//                    });
-//
-//            MaterialDialog dialog = builder.build();
-//            dialog.show();
+        } else if (item.getItemId() == R.id.mainactivity_onthisday) {
+            startActivity(new Intent(this, OnThisDayActivity.class));
+        } else if (item.getItemId() == R.id.mainactivity_about) {
+            MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+                    .title("About The App")
+                    .positiveText("CLOSE")
+                    .content("This app uses the api provided by favqs.com to display its contents")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+            MaterialDialog dialog = builder.build();
+            dialog.show();
         }
         return true;
     }
