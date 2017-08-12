@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.mainactivity_menu, menu);
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
             menu.findItem(R.id.mainactivity_daynightswitch).setIcon(R.drawable.ic_brightness_high_black_24dp);
-            Toast.makeText(this, "Day mode on", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Night mode on", Toast.LENGTH_SHORT).show();
         } else {
             menu.findItem(R.id.mainactivity_daynightswitch).setIcon(R.drawable.ic_brightness_low_black_24dp);
-            Toast.makeText(this, "Night mode on", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Day mode on", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
