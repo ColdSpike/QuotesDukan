@@ -19,6 +19,7 @@ import com.inspiration.makrandpawar.quotesdukan.adapter.QuotesFragmentRecyclerAd
 import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
 import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
 import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
+import com.irozon.sneaker.Sneaker;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
@@ -53,7 +54,17 @@ public class QuotesListFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                callQuotesListService();
+                if (QuotesDukan.isConnectionAvailable)
+                    callQuotesListService();
+                else {
+                    Sneaker.with(getActivity())
+                            .setTitle("Error!!")
+                            .setMessage("Please check your internet connection and refresh")
+                            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                            .setDuration(4000)
+                            .sneakError();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 
@@ -81,8 +92,6 @@ public class QuotesListFragment extends Fragment {
                     public void onBoomButtonClick(int index) {
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         whatLayout = 0;
-                        //QuotesFragmentRecyclerAdapter quotesFragmentRecyclerAdapter = new QuotesFragmentRecyclerAdapter(getActivity(), backupQuotes);
-                        // recyclerView.setAdapter(quotesFragmentRecyclerAdapter);
                     }
                 });
 
@@ -102,8 +111,6 @@ public class QuotesListFragment extends Fragment {
                     public void onBoomButtonClick(int index) {
                         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
                         whatLayout = 1;
-                        //   QuotesFragmentRecyclerAdapter quotesFragmentRecyclerAdapter = new QuotesFragmentRecyclerAdapter(getActivity(), backupQuotes);
-                        // recyclerView.setAdapter(quotesFragmentRecyclerAdapter);
                     }
                 });
 
@@ -121,15 +128,25 @@ public class QuotesListFragment extends Fragment {
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-                        Intent cardStackIntent = new Intent(getActivity(),CardStackActivity.class);
-                        cardStackIntent.putExtra("DATA","data");
+                        Intent cardStackIntent = new Intent(getActivity(), CardStackActivity.class);
+                        cardStackIntent.putExtra("DATA", "data");
                         startActivity(cardStackIntent);
                     }
                 });
         bmb.addBuilder(builder);
         bmb.addBuilder(builder1);
         bmb.addBuilder(builder2);
-        callQuotesListService();
+        if (QuotesDukan.isConnectionAvailable)
+            callQuotesListService();
+        else {
+            Sneaker.with(getActivity())
+                    .setTitle("Error!!")
+                    .setMessage("Please check your internet connection and refresh")
+                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                    .setDuration(4000)
+                    .sneakError();
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     private void callQuotesListService() {
@@ -156,6 +173,12 @@ public class QuotesListFragment extends Fragment {
             @Override
             public void onFailure(Call<QuotesListResponse> call, Throwable t) {
                 t.printStackTrace();
+                Sneaker.with(getActivity())
+                        .setTitle("Error!!")
+                        .setMessage("Please check your internet connection and refresh")
+                        .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .setDuration(4000)
+                        .sneakError();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });

@@ -4,9 +4,11 @@
     package="com.inspiration.makrandpawar.quotesdukan">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
+        android:name=".QuotesDukan"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -20,11 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.inspiration.makrandpawar.quotesdukan.CardStackActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_card_stack"
-            android:theme="@style/FullscreenTheme"></activity>
+        <activity android:name="com.inspiration.makrandpawar.quotesdukan.CardStackActivity" />
+
+        <receiver android:name=".broadcastlisteners.ConnectionListener">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

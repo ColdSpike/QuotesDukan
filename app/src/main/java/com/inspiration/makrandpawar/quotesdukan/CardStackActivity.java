@@ -4,12 +4,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.inspiration.makrandpawar.quotesdukan.adapter.CardStackActivityAdapter;
 import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
 import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
 import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
+import com.irozon.sneaker.Sneaker;
 import com.wenchao.cardstack.CardStack;
 
 import retrofit2.Call;
@@ -34,14 +36,34 @@ public class CardStackActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                callQuotesListService();
+                if (QuotesDukan.isConnectionAvailable)
+                    callQuotesListService();
+                else {
+                    Sneaker.with(CardStackActivity.this)
+                            .setTitle("Error!!")
+                            .setMessage("Please check your internet connection and refresh")
+                            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                            .setDuration(4000)
+                            .sneakError();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 
         cardStack = (CardStack) findViewById(R.id.cardstackactivity_cardstack);
         cardStack.setVisibility(View.GONE);
 
-        callQuotesListService();
+        if (QuotesDukan.isConnectionAvailable)
+            callQuotesListService();
+        else {
+            Sneaker.with(CardStackActivity.this)
+                    .setTitle("Error!!")
+                    .setMessage("Please check your internet connection and refresh")
+                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                    .setDuration(4000)
+                    .sneakError();
+            swipeRefreshLayout.setRefreshing(false);
+        }
 
 
     }
@@ -115,9 +137,14 @@ public class CardStackActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<QuotesListResponse> call, Throwable t) {
                 t.printStackTrace();
+                Sneaker.with(CardStackActivity.this)
+                        .setTitle("Error!!")
+                        .setMessage("Please check your internet connection and refresh")
+                        .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .setDuration(4000)
+                        .sneakError();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
-
-
 }

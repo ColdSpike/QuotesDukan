@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.inspiration.makrandpawar.quotesdukan.model.QotdResponse;
 import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
 import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
+import com.irozon.sneaker.Sneaker;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,11 +44,31 @@ public class QotdFragment extends android.support.v4.app.Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                callQotdService();
+                if (QuotesDukan.isConnectionAvailable)
+                    callQotdService();
+                else {
+                    Sneaker.with(getActivity())
+                            .setTitle("Error!!")
+                            .setMessage("Please check your internet connection and refresh")
+                            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                            .setDuration(4000)
+                            .sneakError();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 
-        callQotdService();
+        if (QuotesDukan.isConnectionAvailable)
+            callQotdService();
+        else {
+            Sneaker.with(getActivity())
+                    .setTitle("Error!!")
+                    .setMessage("Please check your internet connection and refresh")
+                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                    .setDuration(4000)
+                    .sneakError();
+            swipeRefreshLayout.setRefreshing(false);
+        }
 
         return rootView;
     }
@@ -65,12 +86,19 @@ public class QotdFragment extends android.support.v4.app.Fragment {
                 author.setText(response.body().quote.author);
                 swipeRefreshLayout.setRefreshing(false);
 
-                Toast.makeText(getActivity(), "Refresh's remaining: "+response.headers().get("Rate-Limit-Remaining"), Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getActivity(), "Refresh's remaining: " + response.headers().get("Rate-Limit-Remaining"), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<QotdResponse> call, Throwable t) {
                 t.printStackTrace();
+                Sneaker.with(getActivity())
+                        .setTitle("Error!!")
+                        .setMessage("Please check your internet connection and refresh")
+                        .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .setDuration(4000)
+                        .sneakError();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
