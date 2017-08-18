@@ -1,6 +1,7 @@
 package com.inspiration.makrandpawar.quotesdukan;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mainactivity_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            startActivityForResult(new Intent(this, SettingsActivity.class), 199);
         } else if (item.getItemId() == R.id.mainactivity_onthisday) {
             startActivity(new Intent(this, OnThisDayActivity.class));
         } else if (item.getItemId() == R.id.mainactivity_about) {
@@ -101,5 +102,14 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 199) {
+            recreate();
+        }
     }
 }
