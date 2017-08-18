@@ -33,7 +33,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class QuotesListFragment extends Fragment {
-    private List<QuotesListResponse.Quote> backupQuotes;
     private int whatLayout = 0;
 
     public QuotesListFragment() {
@@ -138,6 +137,7 @@ public class QuotesListFragment extends Fragment {
         bmb.addBuilder(builder);
         bmb.addBuilder(builder1);
         bmb.addBuilder(builder2);
+
         if (QuotesDukan.isConnectionAvailable)
             callQuotesListService();
         else {
@@ -159,7 +159,6 @@ public class QuotesListFragment extends Fragment {
         quoteService.getQuotes("Token token=c6e2025366085672e9a5b3d86f179b57").enqueue(new Callback<QuotesListResponse>() {
             @Override
             public void onResponse(Call<QuotesListResponse> call, Response<QuotesListResponse> response) {
-                backupQuotes = response.body().quotes;
                 if (whatLayout == 1)
                     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
                 else if (whatLayout == 0)

@@ -8,9 +8,9 @@
         android:title="OnThisDay"
         app:showAsAction="always" />
     <item
-        android:id="@+id/mainactivity_daynightswitch"
-        android:icon="@drawable/ic_brightness_low_black_24dp"
-        android:title="DayNightSwitch"
+        android:id="@+id/mainactivity_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="Settings"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/mainactivity_about"

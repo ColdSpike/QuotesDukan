@@ -3,6 +3,7 @@ package com.inspiration.makrandpawar.quotesdukan.fragments;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -43,7 +44,23 @@ public class QotdFragment extends android.support.v4.app.Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.qotdfragment_swipe);
         progressBar = (ProgressBar) rootView.findViewById(R.id.qotdfragment_progressbar);
 
-        progressBar.setVisibility(View.VISIBLE);
+        if (savedInstanceState != null) {
+            body.setText(savedInstanceState.get("QOTD-BODY").toString());
+            author.setText(savedInstanceState.get("QOTD-AUTHOR").toString());
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
+            if (QuotesDukan.isConnectionAvailable)
+                callQotdService();
+            else {
+                Sneaker.with(getActivity())
+                        .setTitle("Error!!")
+                        .setMessage("Please check your internet connection and refresh")
+                        .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .setDuration(4000)
+                        .sneakError();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -62,23 +79,11 @@ public class QotdFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        if (QuotesDukan.isConnectionAvailable)
-            callQotdService();
-        else {
-            Sneaker.with(getActivity())
-                    .setTitle("Error!!")
-                    .setMessage("Please check your internet connection and refresh")
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .setDuration(4000)
-                    .sneakError();
-            swipeRefreshLayout.setRefreshing(false);
-        }
-
         body.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("simple text", body.getText().toString()+" :- "+author.getText().toString());
+                ClipData clip = ClipData.newPlainText("simple text", body.getText().toString() + " :- " + author.getText().toString());
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getActivity(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
                 return true;
@@ -86,6 +91,15 @@ public class QotdFragment extends android.support.v4.app.Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (!body.getText().toString().equals("") || !author.getText().toString().equals("")) {
+            outState.putString("QOTD-BODY", body.getText().toString());
+            outState.putString("QOTD-AUTHOR", author.getText().toString());
+        }
+        super.onSaveInstanceState(outState);
     }
 
     private void callQotdService() {
