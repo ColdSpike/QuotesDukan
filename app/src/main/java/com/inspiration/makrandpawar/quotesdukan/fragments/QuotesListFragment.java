@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.inspiration.makrandpawar.quotesdukan.CardStackActivity;
 import com.inspiration.makrandpawar.quotesdukan.QuotesDukan;
 import com.inspiration.makrandpawar.quotesdukan.R;
-import com.inspiration.makrandpawar.quotesdukan.adapter.QuotesFragmentRecyclerAdapter;
+import com.inspiration.makrandpawar.quotesdukan.adapter.QuotesListFragmentRecyclerAdapter;
 import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
 import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
 import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
@@ -25,8 +25,6 @@ import com.irozon.sneaker.Sneaker;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -164,8 +162,8 @@ public class QuotesListFragment extends Fragment {
                 else if (whatLayout == 0)
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-                QuotesFragmentRecyclerAdapter quotesFragmentRecyclerAdapter = new QuotesFragmentRecyclerAdapter(getActivity(), response.body().quotes);
-                recyclerView.setAdapter(quotesFragmentRecyclerAdapter);
+                QuotesListFragmentRecyclerAdapter quotesListFragmentRecyclerAdapter = new QuotesListFragmentRecyclerAdapter(getActivity(), response.body().quotes);
+                recyclerView.setAdapter(quotesListFragmentRecyclerAdapter);
                 swipeRefreshLayout.setRefreshing(false);
             }
 

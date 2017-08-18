@@ -17,18 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inspiration.makrandpawar.quotesdukan.R;
-import com.inspiration.makrandpawar.quotesdukan.fragments.QuotesListFragment;
 import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
 import com.irozon.sneaker.Sneaker;
 
 import java.util.List;
 
-public class QuotesFragmentRecyclerAdapter extends RecyclerView.Adapter<QuotesFragmentRecyclerAdapter.QuotesListFragmentViewHolder> {
+public class QuotesListFragmentRecyclerAdapter extends RecyclerView.Adapter<QuotesListFragmentRecyclerAdapter.QuotesListFragmentViewHolder> {
     private List<QuotesListResponse.Quote> quotes;
     private LayoutInflater inflater;
     private Context context;
 
-    public QuotesFragmentRecyclerAdapter(Context context, List<QuotesListResponse.Quote> quotes) {
+    public QuotesListFragmentRecyclerAdapter(Context context, List<QuotesListResponse.Quote> quotes) {
         this.quotes = quotes;
         this.context = context;
         inflater = LayoutInflater.from(context);
