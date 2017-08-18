@@ -2,10 +2,14 @@ package com.inspiration.makrandpawar.quotesdukan.fragments;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +30,8 @@ import retrofit2.Response;
 
 
 public class QotdFragment extends android.support.v4.app.Fragment {
+    private FloatingActionButton floatingActionButtonShare;
+
     public QotdFragment() {
     }
 
@@ -33,6 +39,7 @@ public class QotdFragment extends android.support.v4.app.Fragment {
     private TextView author;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
+    private TextView doubleQuoteTop,doubleQuoteBottom;
 
     @Nullable
     @Override
@@ -41,8 +48,18 @@ public class QotdFragment extends android.support.v4.app.Fragment {
 
         body = (TextView) rootView.findViewById(R.id.qotdfragment_body);
         author = (TextView) rootView.findViewById(R.id.qotdfragment_author);
+        doubleQuoteTop = (TextView) rootView.findViewById(R.id.qotdfragment_doublequotetop);
+        doubleQuoteBottom = (TextView) rootView.findViewById(R.id.qotdfragment_doublequotebottom);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.qotdfragment_swipe);
         progressBar = (ProgressBar) rootView.findViewById(R.id.qotdfragment_progressbar);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            doubleQuoteBottom.setTextColor(Color.WHITE);
+            doubleQuoteTop.setTextColor(Color.WHITE);
+        }else {
+            doubleQuoteBottom.setTextColor(Color.BLACK);
+            doubleQuoteTop.setTextColor(Color.BLACK);
+        }
 
         if (savedInstanceState != null) {
             body.setText(savedInstanceState.get("QOTD-BODY").toString());
@@ -87,6 +104,26 @@ public class QotdFragment extends android.support.v4.app.Fragment {
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getActivity(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
                 return true;
+            }
+        });
+
+        floatingActionButtonShare = (FloatingActionButton) rootView.findViewById(R.id.qotdfragment_share);
+        floatingActionButtonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!body.getText().toString().equals("") && !author.getText().toString().equals("")) {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, body.getText().toString() + " - " + author.getText().toString());
+                    startActivity(Intent.createChooser(shareIntent, "Choose App To Share With"));
+                } else {
+                    Sneaker.with(getActivity())
+                            .setTitle("Error!!")
+                            .setMessage("Please wait for the Quote to load")
+                            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                            .setDuration(3000)
+                            .sneakWarning();
+                }
             }
         });
 

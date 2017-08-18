@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/qotdfragment_swipe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:id="@+id/qotdfragment_doublequotetop"
                 android:fontFamily="monospace"
                 android:text="@string/doublequote"
                 android:textColor="#000000"
@@ -48,6 +50,7 @@
                 android:gravity="end"
                 android:layout_marginEnd="10dp"
                 android:text="@string/doublequote"
+                android:id="@+id/qotdfragment_doublequotebottom"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 android:textStyle="bold|italic" />
@@ -61,5 +64,13 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/qotdfragment_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@drawable/ic_share_black_24dp" />
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

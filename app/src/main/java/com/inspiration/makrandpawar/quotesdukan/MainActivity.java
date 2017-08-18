@@ -20,7 +20,7 @@ import com.inspiration.makrandpawar.quotesdukan.adapter.MainActivityViewPagerAda
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private FloatingActionButton floatingActionButton;
+    private FloatingActionButton floatingActionButtonNextScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 1) {
-                    floatingActionButton.setVisibility(View.GONE);
+                    floatingActionButtonNextScreen.setVisibility(View.GONE);
                     getSupportActionBar().setTitle("Quotes Dukan");
                 } else if (position == 0) {
-                    floatingActionButton.setVisibility(View.VISIBLE);
+                    floatingActionButtonNextScreen.setVisibility(View.VISIBLE);
                     getSupportActionBar().setTitle("Quote Of The Day");
                 }
             }
@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.mainactivity_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionButtonNextScreen = (FloatingActionButton) findViewById(R.id.mainactivity_nextscreen);
+        floatingActionButtonNextScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
