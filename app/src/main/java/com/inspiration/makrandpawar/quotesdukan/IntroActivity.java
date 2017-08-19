@@ -26,6 +26,7 @@ public class IntroActivity extends AppIntro2 {
         addSlide(AppIntro2Fragment.newInstance("Multiple View Modes", "different types of view modes for better experience", R.drawable.ic_different_views_48dp_black, getResources().getColor(R.color.introcolor3)));
         addSlide(AppIntro2Fragment.newInstance("On This Day", "see what events, births and deaths happened in the past", R.drawable.ic_history_black_48dp, getResources().getColor(R.color.introcolor4)));
         addSlide(AppIntro2Fragment.newInstance("Easy Copy", "just long click what you want to copy and it will be copied to your clipboard", R.drawable.ic_content_copy_black_48dp, getResources().getColor(R.color.introcolor5)));
+        addSlide(AppIntro2Fragment.newInstance("Save What You Love", "Favourite the quotes you like and view them anytime later", R.drawable.ic_star_gold_48dp, getResources().getColor(R.color.introcolor7)));
         addSlide(AppIntro2Fragment.newInstance("AND THE BEST PART!!", "NO IRRITATING ADS!", R.drawable.ic_tag_faces_black_48dp, getResources().getColor(R.color.introcolor6)));
         showSkipButton(false);
         setProgressButtonEnabled(true);

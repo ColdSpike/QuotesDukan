@@ -34,8 +34,10 @@
         <activity
             android:name=".OnThisDayActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".FavouritesActivity"></activity>
     </application>
 
 </manifest>

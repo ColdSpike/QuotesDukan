@@ -12,17 +12,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ToggleButton
-            android:id="@+id/quoteslistfragmentsinglerow_favourite"
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_star_border_black_24dp"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:minHeight="30dp"
-            android:minWidth="30dp"
-            android:textOff=""
-            android:textOn="" />
+            android:id="@+id/favouritesactivitysinglerow_unfavourite"
+            android:src="@drawable/ic_delete_forever_black_24dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:id="@+id/quoteslistfragmentsinglerow_share"
+                android:id="@+id/favouritesactivitysinglerow_share"
                 android:layout_margin="5dp"
                 android:src="@drawable/ic_share_black_24dp" />
 
@@ -42,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:fontFamily="monospace"
-                android:id="@+id/quoteslistfragmentsinglerow_doublequotetop"
+                android:id="@+id/favouritesactivitysinglerow_doublequotetop"
                 android:text="@string/doublequote"
                 android:textColor="#000000"
                 android:textSize="30sp"
@@ -50,7 +45,7 @@
 
 
             <TextView
-                android:id="@+id/quoteslistfragmentsinglerow_body"
+                android:id="@+id/favouritesactivitysinglerow_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -68,14 +63,13 @@
                 android:text="@string/doublequote"
                 android:textColor="#000000"
                 android:textSize="30sp"
-                android:id="@+id/quoteslistfragmentsinglerow_doublequotebottom"
+                android:id="@+id/favouritesactivitysinglerow_doublequotebottom"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/quoteslistfragmentsinglerow_author"
+                android:id="@+id/favouritesactivitysinglerow_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/quoteslistfragmentsinglerow_body"
                 android:layout_margin="5dp"
                 android:gravity="end"
                 android:text="-author"

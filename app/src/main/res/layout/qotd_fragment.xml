@@ -19,10 +19,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/qotdfragment_doublequotetop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:id="@+id/qotdfragment_doublequotetop"
                 android:fontFamily="monospace"
                 android:text="@string/doublequote"
                 android:textColor="#000000"
@@ -44,13 +44,13 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/qotdfragment_doublequotebottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="monospace"
                 android:gravity="end"
-                android:layout_marginEnd="10dp"
                 android:text="@string/doublequote"
-                android:id="@+id/qotdfragment_doublequotebottom"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 android:textStyle="bold|italic" />
@@ -64,13 +64,28 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/qotdfragment_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
             app:srcCompat="@drawable/ic_share_black_24dp" />
+
+        <ToggleButton
+            android:id="@+id/qotdfragment_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ic_star_border_black_24dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:minHeight="30dp"
+            android:minWidth="30dp"
+            android:textOff=""
+            android:textOn="" />
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

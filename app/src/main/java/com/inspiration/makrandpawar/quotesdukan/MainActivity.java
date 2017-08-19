@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
             MaterialDialog dialog = builder.build();
             dialog.show();
+        }else if (item.getItemId() == R.id.mainactivity_favourites){
+            startActivity(new Intent(this,FavouritesActivity.class));
         }
         return true;
     }

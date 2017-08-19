@@ -8,6 +8,11 @@
         android:title="OnThisDay"
         app:showAsAction="always" />
     <item
+        android:id="@+id/mainactivity_favourites"
+        android:title="Favourites"
+        android:icon="@drawable/ic_star_gold_24dp"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/mainactivity_settings"
         android:icon="@drawable/ic_settings_black_24dp"
         android:title="Settings"
