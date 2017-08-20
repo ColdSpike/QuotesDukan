@@ -13,11 +13,13 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.inspiration.makrandpawar.quotesdukan.CardStackActivity;
 import com.inspiration.makrandpawar.quotesdukan.QuotesDukan;
 import com.inspiration.makrandpawar.quotesdukan.R;
 import com.inspiration.makrandpawar.quotesdukan.adapter.QuotesListFragmentRecyclerAdapter;
+import com.inspiration.makrandpawar.quotesdukan.model.QuoteListRealmObject;
 import com.inspiration.makrandpawar.quotesdukan.model.QuotesListResponse;
 import com.inspiration.makrandpawar.quotesdukan.rest.QuoteService;
 import com.inspiration.makrandpawar.quotesdukan.rest.RetrofitService;
@@ -26,6 +28,11 @@ import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,6 +78,36 @@ public class QuotesListFragment extends Fragment {
 
         createBmb();
 
+        final Realm realm = Realm.getInstance(Realm.getDefaultConfiguration());
+        RealmResults<QuoteListRealmObject> result = realm.where(QuoteListRealmObject.class).findAll();
+        if (result.size() > 0) {
+            if (whatLayout == 1)
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+            else if (whatLayout == 0)
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            ArrayList<QuotesListResponse.Quote> quoteList = new ArrayList<>();
+            QuotesListResponse.Quote quote;
+            for (int i = 0; i < result.size(); i++) {
+                quote = new QuotesListResponse.Quote();
+                quote.body = result.get(i).getBody();
+                quote.author = result.get(i).getAuthor();
+                quoteList.add(quote);
+            }
+            QuotesListFragmentRecyclerAdapter quotesListFragmentRecyclerAdapter = new QuotesListFragmentRecyclerAdapter(getActivity(), quoteList);
+            recyclerView.setAdapter(quotesListFragmentRecyclerAdapter);
+        } else {
+            if (QuotesDukan.isConnectionAvailable)
+                callQuotesListService();
+            else {
+                Sneaker.with(getActivity())
+                        .setTitle("Error!!")
+                        .setMessage("Please check your internet connection and refresh")
+                        .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .setDuration(4000)
+                        .sneakError();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
         return rootView;
     }
 
@@ -135,18 +172,18 @@ public class QuotesListFragment extends Fragment {
         bmb.addBuilder(builder);
         bmb.addBuilder(builder1);
         bmb.addBuilder(builder2);
+    }
 
-        if (QuotesDukan.isConnectionAvailable)
-            callQuotesListService();
-        else {
-            Sneaker.with(getActivity())
-                    .setTitle("Error!!")
-                    .setMessage("Please check your internet connection and refresh")
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .setDuration(4000)
-                    .sneakError();
-            swipeRefreshLayout.setRefreshing(false);
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Realm realm = Realm.getInstance(Realm.getDefaultConfiguration());
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.delete(QuoteListRealmObject.class);
+            }
+        });
     }
 
     private void callQuotesListService() {
@@ -156,7 +193,7 @@ public class QuotesListFragment extends Fragment {
 
         quoteService.getQuotes("Token token=c6e2025366085672e9a5b3d86f179b57").enqueue(new Callback<QuotesListResponse>() {
             @Override
-            public void onResponse(Call<QuotesListResponse> call, Response<QuotesListResponse> response) {
+            public void onResponse(Call<QuotesListResponse> call, final Response<QuotesListResponse> response) {
                 if (whatLayout == 1)
                     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
                 else if (whatLayout == 0)
@@ -165,6 +202,33 @@ public class QuotesListFragment extends Fragment {
                 QuotesListFragmentRecyclerAdapter quotesListFragmentRecyclerAdapter = new QuotesListFragmentRecyclerAdapter(getActivity(), response.body().quotes);
                 recyclerView.setAdapter(quotesListFragmentRecyclerAdapter);
                 swipeRefreshLayout.setRefreshing(false);
+
+                final Realm realm = Realm.getInstance(Realm.getDefaultConfiguration());
+                realm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        RealmResults<QuoteListRealmObject> result = realm.where(QuoteListRealmObject.class).findAll();
+                        if (result.size() > 0) {
+                            realm.delete(QuoteListRealmObject.class);
+                        }
+                        for (int i = 0; i < response.body().quotes.size(); i++) {
+                            QuoteListRealmObject quoteListRealmObject = realm.createObject(QuoteListRealmObject.class);
+                            quoteListRealmObject.setId(911);
+                            quoteListRealmObject.setBody(response.body().quotes.get(i).body);
+                            quoteListRealmObject.setAuthor(response.body().quotes.get(i).author);
+                        }
+                    }
+                }, new Realm.Transaction.OnSuccess() {
+                    @Override
+                    public void onSuccess() {
+                        realm.close();
+                    }
+                }, new Realm.Transaction.OnError() {
+                    @Override
+                    public void onError(Throwable error) {
+                        realm.close();
+                    }
+                });
             }
 
             @Override
